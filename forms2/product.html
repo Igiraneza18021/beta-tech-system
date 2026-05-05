@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Registration – Beta Tech Solutions</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="login.html">Login</a>
+    <a href="employee.html">Employee</a>
+    <a href="product.html" class="active">Product</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="booking.html">Booking</a>
+  </nav>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="badge">Developer 3 · feature/product-form</div>
+      <h1>Product Registration</h1>
+      <p>Add a new product to the Beta Tech catalog</p>
+    </div>
+
+    <form id="productForm" novalidate>
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" id="productName" name="productName"
+               placeholder="e.g. Wireless Keyboard Pro" required />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="price">Price (RWF)</label>
+          <input type="number" id="price" name="price"
+                 placeholder="e.g. 25000" min="0" step="100" required />
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity in Stock</label>
+          <input type="number" id="quantity" name="quantity"
+                 placeholder="e.g. 50" min="0" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Product Description</label>
+        <textarea id="description" name="description"
+                  placeholder="Describe the product features, specifications…" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Register Product →</button>
+    </form>
+
+    <div class="toast" id="toast">✅ Product added to catalog successfully!</div>
+  </div>
+
+  <footer>Beta Tech Solutions · Product Form · Dev 3</footer>
+
+  <script>
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) { this.reportValidity(); return; }
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      this.reset();
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    });
+  </script>
+</body>
+</html>
