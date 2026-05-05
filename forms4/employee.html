@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Registration – Beta Tech Solutions</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="login.html">Login</a>
+    <a href="employee.html" class="active">Employee</a>
+    <a href="product.html">Product</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="booking.html">Booking</a>
+  </nav>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="badge">Developer 2 · feature/employee-form</div>
+      <h1>Employee Registration</h1>
+      <p>Register a new team member in the system</p>
+    </div>
+
+    <form id="employeeForm" novalidate>
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName"
+               placeholder="e.g. Alice Johnson" required />
+      </div>
+
+      <div class="form-group">
+        <label for="empEmail">Email Address</label>
+        <input type="email" id="empEmail" name="email"
+               placeholder="alice@betatech.com" required />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="position">Position</label>
+          <select id="position" name="position" required>
+            <option value="" disabled selected>Select position</option>
+            <option>Software Engineer</option>
+            <option>UI/UX Designer</option>
+            <option>Product Manager</option>
+            <option>Data Analyst</option>
+            <option>DevOps Engineer</option>
+            <option>QA Tester</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select id="department" name="department" required>
+            <option value="" disabled selected>Select dept</option>
+            <option>Engineering</option>
+            <option>Design</option>
+            <option>Product</option>
+            <option>Operations</option>
+            <option>HR</option>
+            <option>Finance</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">Register Employee →</button>
+    </form>
+
+    <div class="toast" id="toast">✅ Employee registered successfully!</div>
+  </div>
+
+  <footer>Beta Tech Solutions · Employee Form · Dev 2</footer>
+
+  <script>
+    document.getElementById('employeeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) { this.reportValidity(); return; }
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      this.reset();
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    });
+  </script>
+</body>
+</html>
