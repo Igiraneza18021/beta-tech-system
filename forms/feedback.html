@@ -3,6 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+     .tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Feedback list table */
+  .users-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .users-table th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .users-table td {
+    font-size: 0.85rem;
+    color: var(--text);
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  .users-table tr:hover td { background: rgba(79,142,247,0.05); }
+  .msg-preview {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .stars { color: #f59e0b; letter-spacing: 1px; font-size: 0.85rem; }
+  </style>
   <title>Customer Feedback – Beta Tech Solutions</title>
   <link rel="stylesheet" href="../css/style.css" />
 </head>
@@ -17,12 +75,16 @@
   </nav>
 
   <div class="card">
+    <div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('form-tab', this)">💬 Submit</button>
+  <button class="tab-btn"        onclick="switchTab('list-tab',  this)">📝 Responses</button>
+</div>
     <div class="card-header">
       <div class="badge">Developer 4 · feature/feedback-form</div>
       <h1>Customer Feedback</h1>
       <p>Share your experience with Beta Tech Solutions</p>
     </div>
-
+<div class="tab-panel active" id="form-tab">
     <form id="feedbackForm" novalidate>
       <div class="form-group">
         <label for="fbName">Your Name</label>
@@ -41,6 +103,7 @@
         <textarea id="message" name="message"
                   placeholder="Tell us what you think…" required></textarea>
       </div>
+      </div>
 
       <div class="form-group">
         <label>Rating</label>
@@ -57,6 +120,57 @@
           <label for="r5">5</label>
         </div>
       </div>
+      <div class="tab-panel" id="list-tab">
+  <div class="card-header">
+    <div class="badge">Feedback Received</div>
+    <h1>Feedback List</h1>
+    <p>Customer responses submitted so far</p>
+  </div>
+
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Message</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Alice K.</td>
+        <td><div class="msg-preview">Great service, very responsive team!</div></td>
+        <td><span class="stars">★★★★★</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>John M.</td>
+        <td><div class="msg-preview">The website could use some improvements</div></td>
+        <td><span class="stars">★★★☆☆</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Eva N.</td>
+        <td><div class="msg-preview">Loved the event, well organised</div></td>
+        <td><span class="stars">★★★★☆</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Bob U.</td>
+        <td><div class="msg-preview">Fast delivery and good packaging</div></td>
+        <td><span class="stars">★★★★★</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Claire D.</td>
+        <td><div class="msg-preview">Support team resolved issue quickly</div></td>
+        <td><span class="stars">★★★★☆</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
       <button type="submit" class="btn">Submit Feedback →</button>
     </form>
@@ -78,6 +192,12 @@
       this.reset();
       setTimeout(() => toast.classList.remove('show'), 3500);
     });
+     function switchTab(panelId, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+    btn.classList.add('active');
+  }
   </script>
 </body>
 </html>
